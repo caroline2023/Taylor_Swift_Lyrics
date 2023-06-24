@@ -75,8 +75,8 @@ def text_entered(event, tree, lyrics, labels, words_left):
         words_left[0] -= 1
         labels[i].config(text=lyrics[i])
     tree.remove(text)
-    print(text + " has been removed")
-    print([i.get_word() for i in tree])
+    # print(text + " has been removed")
+    # print([i.get_word() for i in tree])
     if words_left[0] == 0:
         win()
     else:
