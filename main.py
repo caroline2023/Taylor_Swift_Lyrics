@@ -6,7 +6,6 @@
 # might want to just say if its not any of these characters (alphabet + .,?!():'") maybe
 # cant scroll with two fingers on mac, seems to be a tkinter thing
 # sometimes you might manage to type "in" before "i" and yes, the system is just not fast enough ig
-# add a button for rules
 
 import tkinter as tk
 from tkinter import ttk
@@ -20,7 +19,7 @@ albums = [
 ]
 colors = [
     "#edf7f3", "#c49d27", "#8a14c9", "#a30b25", "#0099f2",
-    "black", "#f7e4f5", "#cfc8be", "#dec9a4", "#0a0647"
+    "black", "#f7e4f5", "#cfc8be", "#dec9a4", "#160775"
 ]
 FONT = "Lao MN"
 text_font = (FONT, 15)
@@ -33,6 +32,57 @@ for album in albums:
             song_list.append(song.strip())
 
 random.shuffle(song_list)
+
+rules_text = ""
+with open("rules.txt", "r") as file:
+    for line in file:
+        rules_text += line
+print(rules_text)
+
+
+def rules_hover(event):
+    """
+    hovering over the question mark, will see that clicking it gives rules
+    """
+    rules.place(width=50)
+    rules.config(text="Rules")
+
+
+def rules_unhover(event):
+    """
+    not hovering over question mark
+    """
+    rules.place(width=30)
+    rules.config(text="?")
+
+
+def show_rules():
+    """
+    new window pops up when button clicked that shows rules
+    would like to implement a scrolling thing, and text will be from rules.txt
+    havent written, implement later
+    """
+    rules_window = tk.Toplevel()
+    rules_window.title("Rules")
+    rules_window.geometry("500x400")
+    rules_window.config(background=colors[7])
+    rules = tk.Label(
+        rules_window,
+        text=rules_text,
+        background=colors[7],
+        foreground=colors[9],
+        wraplength=460,
+        justify="left",
+        font=(FONT, 14)
+    )
+    rules.config(anchor="w")
+    rules.pack(padx=20, pady=20)
+    rules_image = Image.open("tay.jpeg")  # 1600 x 900
+    rules_image = rules_image.resize((320, 180))  # Resize the image if needed
+    rules_photo = ImageTk.PhotoImage(rules_image)
+    rules_pic = tk.Label(rules_window, image=rules_photo, background=colors[4])
+    rules_pic.place(x=90, y=180)
+    rules_window.mainloop()
 
 
 def modify_text(word):
@@ -152,9 +202,15 @@ start_button.config(
 )
 start_button.place(x=500, y=375, width=200, height=100)
 
+rules = tk.Button(window, text="?", highlightbackground=colors[7],
+                  command=show_rules, font=(FONT, 15), highlightthickness=15, fg=colors[3])
+rules.place(x=0, y=0, width=30, height=30)
+rules.bind("<Enter>", rules_hover)
+rules.bind("<Leave>", rules_unhover)
+
 text_entry = tk.Entry(window)
 text_entry.config(
-    font=(FONT, 15),
+    font=(FONT, 20),
     foreground=colors[2],
     background=colors[8],
     highlightbackground=colors[3]
