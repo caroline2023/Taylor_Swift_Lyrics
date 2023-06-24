@@ -26,14 +26,13 @@ FONT = "Lao MN"
 text_font = (FONT, 15)
 
 
-# song_list = []
-# for album in albums:
-#     with open(f"songs_list/{album}.txt", "r") as file:
-#         for song in file:
-#             song_list.append(song.strip())
-#
-# random.shuffle(song_list)
-song_list = ["the-story-of-us"]
+song_list = []
+for album in albums:
+    with open(f"songs_list/{album}.txt", "r") as file:
+        for song in file:
+            song_list.append(song.strip())
+
+random.shuffle(song_list)
 
 
 def modify_text(word):
