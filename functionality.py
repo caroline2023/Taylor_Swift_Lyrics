@@ -1,5 +1,8 @@
 # functions for the program
 
+# probably should clean things up a bit and make it nicer 
+# because tree and node can be combined, use functions to finish the rest?
+
 import requests
 from bs4 import BeautifulSoup
 
